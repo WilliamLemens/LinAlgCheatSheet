@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=1cm,bottom=1cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\begin{document}
+	\begin{itemize} 
+		\item QR factorization:
+    		\begin{itemize}
+    			\item Normal equation: \(A^TA\hat{x}=A^Tb\).
+                
+                Plug in \(A\) and \(b\) to find \(\hat{x}\) = best approximate solution (linear least-squares) 
+				\item Compute projection of \( b \) onto \(A\): \(A(A^TA)^{−1}A^Tb=\hat{x}\)
+				\item Orthonormal vectors: $$q_n=\frac{a^{\bot }_n}{\parallel a^{\bot }_n \parallel _2}$$ where
+					$$a^\bot _n = a_n − e_{0,n}q_0− \dots −e_{n−1,n}q_{n−1}$$
+					$$a^\bot _n=a_n−q^T_0a_nq_0−\dots −q^T_{n−1}a_nq_{n−1}$$
+                \item \(A=QR\) where \(Q=(q_0 | \dots | q_{n-1})\)
+                
+                and \(R=
+                	\begin{pmatrix}
+                    	\parallel a_0 \parallel _2 & e_(0,1) & \dots & e_{0,n-1} \\
+                        & \parallel a_1^{\bot } \parallel _2 & \ddots & \vdots \\
+                        & & \ddots & e_{n-2,n-1} \\
+                        0 & & & \parallel a^{\bot }_{n-1} \parallel _2
+                    \end{pmatrix}
+                \)
+			\end{itemize}
+		\item Row echelon form is the result of Gaussian elimination
+		\item Space spanned by vectors: \(A=\{ a_0|\text{...}|a_{n−1}\} \) where A is the space
+		\item \(Ax=b\) for multiple solutions: $$A(x_s+\beta x_n)=b$$ where \(x_s\) is s.t. \(Ax_s=b\) and \(x_n\) s.t. \(Ax_n=0\)
+        \item Eigenvalues are scalars \(\lambda \). \(\lambda\) is an eigenvalue of \(A \iff Ax = \lambda x\) for some non-zero vector \(x\). So:
+        
+        	For 2x2 \(M =
+                \begin{pmatrix}
+                    a-\lambda & b \\
+                    c & d-\lambda 
+                \end{pmatrix}\), and for 3x3 \( M =
+                \begin{pmatrix}
+                    a-\lambda & b & c \\
+                    d & e-\lambda & f \\
+                    g & h & i-\lambda 
+                \end{pmatrix} \),
+                
+            and \( \text{det}(A-\lambda I)=0\).
+        \item Eigenvectors
+        \item Determinants:
+        	\begin{itemize}
+        		\item For 2x2 matrices 
+                	\(M =
+                    \begin{pmatrix}
+                		a & b \\
+                        c & d
+                	\end{pmatrix}\),
+                    \(\text{det}(M)=ad-bc \)
+                \item For 3x3 matrices 
+                	\(M =
+                    \begin{pmatrix}
+                		a & b & c \\
+                        d & e & f \\
+                        g & h & i
+                	\end{pmatrix}\),
+                    \(\text{det}(M)= a(ei-hf)-b(di-fg)+c(dh-eg) \), or
+                    
+                    \(\text{det}(M)= aei+bfg+cdh-(afh+bdi+ceg) \)
+        	\end{itemize}
+        \item Equivalent to "A is nonsingular"
+        	\begin{itemize}
+        		\item \(A\) is invertible.
+                \item \(A^{-1}\) exists.
+                \item \(AA^{-1}=A^{-1}A=I\).
+                \item \(A\) represents a linear transformation that is a bijection.
+                \item \(Ax=b\) has a unique solution for all \(b\in \mathbb{R} ^n\).
+                \item \(Ax=0\) implies that x=0.
+                \item \(Ax=e_j\) has a solution for all \(j\in \{0,\dots ,n-1\}\)
+                \item The determinant of \(A\) is nonzero: \(det(A)\neq 0\).
+                \item \(LU\) with partial pivoting does not break down.
+                \item \(\mathcal{N}(A)={0}\).
+                \item \(\mathcal{C}(A)=\mathbb{R}^n\).
+                \item \(\mathcal{R}(A)=\mathbb{R}^n\).
+                \item \(A\) has linearly independent columns.
+                \item \(A\) has linearly independent rows.
+        	\end{itemize}
+	\end{itemize}
+\end{document}
