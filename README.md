@@ -5,4 +5,5 @@ Also a chance to play with LaTeX and find some light in the darkness that is fin
 
 ### Shoutouts
 http://detexify.kirelabs.org/classify.html is absurdly helpful.
+
 https://www.overleaf.com/ is better than any LaTeX programs I've found so far, stellar website.
