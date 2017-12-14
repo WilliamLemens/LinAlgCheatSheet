@@ -6,7 +6,7 @@
 \usepackage[T1]{fontenc}
 
 %% Sets page size and margins
-\usepackage[a4paper,top=1cm,bottom=1cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
+\usepackage[a4paper,top=1cm,bottom=2cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
 
 %% Useful packages
 \usepackage{amsmath}
@@ -16,86 +16,88 @@
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 \begin{document}
-	\begin{itemize}
-    	\item Linear/undetermined systems
+    \begin{itemize}
+        \item Linear/undetermined systems
         \begin{itemize}
-        	\item Matrix multiplication is \(\rightarrow \downarrow\).
-			\item \textbf{Row echelon form} is the result of Gaussian elimination.
-        	\item \textbf{Pivots} are first nonzero value in a row. \textbf{Free variables} are those columns without pivots. \textbf{Dependent variables} are columns with pivots.
+            \item Matrix multiplication is \(\rightarrow \downarrow\).
+            \item \textbf{Row echelon form} is the result of Gaussian elimination.
+            \item \textbf{Pivots} are first nonzero value in a row. \textbf{Free variables} are those columns without pivots. \textbf{Dependent variables} are columns with pivots.
             \item \textbf{Specific (particular) solutions} are solutions \(x_s\), and \textbf{vectors in the null space} are solutions \(x_n\)
-          	\item \(Ax=b\) for multiple solutions is the \textbf{general (total) solution}: \(A(x_s+\beta x_n)=b\)
-
+            \item \(Ax=b\) for multiple solutions is the \textbf{general (total) solution}: \(A(x_s+\beta x_n)=b\)
+            
             where \(x_s\) is s.t. \(Ax_s=b\) and \(x_n\) s.t. \(Ax_n=0\)
-            \item Vectors form a basis for a column space of \(A\) if they're in \(A\) and linearly independent.
-            \item Vectors in a row space are column vectors.
+            \item Vectors form a basis for a column space of \(A\) if they're columns in \(A\) and linearly independent. \(\mathcal{C}(A)=\text{Span}(a_0\text{, ... , }a_n-1)\). So just the columns in which the pivots appear. Maybe more.
+            \item Vectors in a row space are column vectors. The rows in which the pivots appear (both in row echelon and initial, though we usually use row echelon) transversed.
+            \item To find vectors in the null space set the first free variable to 1 and the second to 0 for the first vector, then flip for the second.
+            \item General solution is Specific solution \( +\beta _k*k\)th vector in the null space for all vectors in the null space.
         \end{itemize}
-
-		\item QR factorization:
-    		\begin{itemize}
-    			\item \textbf{Normal equation}: \(A^TA\hat{x}=A^Tb\) or \((A^TA)^{-1}A^Tb=\hat{x}\)
-
-                Plug in \(A\) and \(b\) to find \(\hat{x}\) = best approximate solution (\textbf{linear least-squares solution})
-
-				\item \textbf{Compute projection} of \( b \) onto \(A\), call it \(\hat{b}\): \(A(A^TA)^{−1}A^Tb=\hat{b}\).
-
+        
+        \item QR factorization:
+            \begin{itemize}
+                \item \textbf{Normal equation}: \(A^TA\hat{x}=A^Tb\) or \((A^TA)^{-1}A^Tb=\hat{x}\)
+                
+                Plug in \(A\) and \(b\) to find \(\hat{x}\) = best approximate solution (\textbf{linear least-squares solution}) 
+                
+                \item \textbf{Compute projection} of \( b \) onto \(A\), call it \(\hat{b}\): \(A(A^TA)^{−1}A^Tb=\hat{b}\).
+                
                 Note that this is just the \(\hat{x}\) from the normal equation multiplied by \(A\), so \(\hat{b}=A\hat{x}\).
-
-				\item Orthonormal vectors: $$q_k=\frac{a^\bot _k}{\rho _{k,k}}=\frac{a^{\bot }_k}{\parallel a^{\bot }_k \parallel _2}$$ where
-					$$a^\bot _k = a_k − \rho _{0,k}q_0− \dots −\rho _{k−1,k}q_{k−1}$$
-					$$a^\bot _k=a_k−q^T_0a_kq_0−\dots −q^T_{k−1}a_kq_{k−1}$$
-
+                
+                \item Orthonormal vectors: $$q_k=\frac{a^\bot _k}{\rho _{k,k}}=\frac{a^{\bot }_k}{\parallel a^{\bot }_k \parallel _2}$$ where
+                    $$a^\bot _k = a_k − \rho _{0,k}q_0− \dots −\rho _{k−1,k}q_{k−1}$$
+                    $$a^\bot _k=a_k−q^T_0a_kq_0−\dots −q^T_{k−1}a_kq_{k−1}$$
+                    
                 \item \(A=QR\) where \(Q=(q_0 | \dots | q_{n-1})\)
-
-                	and \(R=
-                		\begin{pmatrix}
-                    	\parallel a_0 \parallel _2 & \rho _{0,1} & \dots & \rho _{0,n-1} \\
+                
+                    and \(R=
+                        \begin{pmatrix}
+                        \parallel a_0 \parallel _2 & q_0^Ta_1 & \dots & q_0^Ta_{n-1} \\
                         & \parallel a_1^{\bot } \parallel _2 & \ddots & \vdots \\
-                        & & \ddots & \rho _{n-2,n-1} \\
+                        & & \ddots & q_{n-2}^Ta_{n-1} \\
                         0 & & & \parallel a^{\bot }_{n-1} \parallel _2
-                    	\end{pmatrix}
-                	\). Basically any \(\rho _{k,k}=\parallel a_k^{\bot } \parallel _2 \),
-                	\(\rho _{(i<k),k}=q_i^Ta_k\), and \(\rho _{(i>k),k}=0\).
+                        \end{pmatrix}
+                    \). Basically any \(\rho _{k,k}=\parallel a_k^{\bot } \parallel _2 \),
+                    \(\rho _{(i<k),k}=q_i^Ta_k\), and \(\rho _{(i>k),k}=0\).
                 \item \(Q^TQ=I\)
-			\end{itemize}
-		\item Space spanned by vectors: \(A=\{ a_0|\text{...}|a_{n−1}\} \) where A is the space
+            \end{itemize}
+        \item Space spanned by vectors: \(A=\{ a_0|\text{...}|a_{n−1}\} \) where \(A\) is the space and \(a_k\) is a vector.
         \item \textbf{Eigenvalues} are scalars \(\lambda \). \(\lambda\) is an eigenvalue of \(A \iff Ax = \lambda x\) for some non-zero vector \(x\). So:
-
-        	For 2x2 \(M =
+        
+            For 2x2 \(M =
                 \begin{pmatrix}
                     a-\lambda & b \\
-                    c & d-\lambda
+                    c & d-\lambda 
                 \end{pmatrix}\), and for 3x3 \( M =
                 \begin{pmatrix}
                     a-\lambda & b & c \\
                     d & e-\lambda & f \\
-                    g & h & i-\lambda
+                    g & h & i-\lambda 
                 \end{pmatrix} \),
-
+                
             and \( \text{det}(A-\lambda I)=0\).
         \item \textbf{Eigenvectors}
         \item Determinants:
-        	\begin{itemize}
-        		\item For 2x2 matrices
-                	\(M =
+            \begin{itemize}
+                \item For 2x2 matrices 
+                    \(M =
                     \begin{pmatrix}
-                		a & b \\
+                        a & b \\
                         c & d
-                	\end{pmatrix}\),
+                    \end{pmatrix}\),
                     \(\text{det}(M)=ad-bc \)
-                \item For 3x3 matrices
-                	\(M =
+                \item For 3x3 matrices 
+                    \(M =
                     \begin{pmatrix}
-                		a & b & c \\
+                        a & b & c \\
                         d & e & f \\
                         g & h & i
-                	\end{pmatrix}\),
+                    \end{pmatrix}\),
                     \(\text{det}(M)= a(ei-hf)-b(di-fg)+c(dh-eg) \), or
-
+                    
                     \(\text{det}(M)= aei+bfg+cdh-(afh+bdi+ceg) \)
-        	\end{itemize}
+            \end{itemize}
         \item Equivalent to "A is nonsingular"
-        	\begin{itemize}
-        		\item \(A\) is invertible.
+            \begin{itemize}
+                \item \(A\) is invertible.
                 \item \(A^{-1}\) exists.
                 \item \(AA^{-1}=A^{-1}A=I\).
                 \item \(A\) represents a linear transformation that is a bijection.
@@ -109,6 +111,6 @@
                 \item \(\mathcal{R}(A)=\mathbb{R}^n\).
                 \item \(A\) has linearly independent columns.
                 \item \(A\) has linearly independent rows.
-        	\end{itemize}
-	\end{itemize}
+            \end{itemize}
+    \end{itemize}
 \end{document}
