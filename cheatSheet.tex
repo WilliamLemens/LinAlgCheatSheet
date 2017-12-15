@@ -6,7 +6,7 @@
 \usepackage[T1]{fontenc}
 
 %% Sets page size and margins
-\usepackage[a4paper,top=1cm,bottom=2cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
+\usepackage[a4paper,top=2cm,bottom=2cm,left=1cm,right=1cm,marginparwidth=1.75cm]{geometry}
 
 %% Useful packages
 \usepackage{amsmath}
@@ -21,15 +21,24 @@
         \begin{itemize}
             \item Matrix multiplication is \(\rightarrow \downarrow\).
             \item \textbf{Row echelon form} is the result of Gaussian elimination.
-            \item \textbf{Pivots} are first nonzero value in a row. \textbf{Free variables} are those columns without pivots. \textbf{Dependent variables} are columns with pivots.
-            \item \textbf{Specific (particular) solutions} are solutions \(x_s\), and \textbf{vectors in the null space} are solutions \(x_n\)
+            \item \textbf{Pivots} are first nonzero value in a row.
+            \item \textbf{Free variables} are those columns without pivots.
+            \item \textbf{Dependent variables} are columns with pivots.
+            \item \textbf{Rank} of a matrix is the number of pivots.
             \item \(Ax=b\) for multiple solutions is the \textbf{general (total) solution}: \(A(x_s+\beta x_n)=b\)
             
             where \(x_s\) is s.t. \(Ax_s=b\) and \(x_n\) s.t. \(Ax_n=0\)
-            \item Vectors form a basis for a column space of \(A\) if they're columns in \(A\) and linearly independent. \(\mathcal{C}(A)=\text{Span}(a_0\text{, ... , }a_n-1)\). So just the columns in which the pivots appear. Maybe more.
-            \item Vectors in a row space are column vectors. The rows in which the pivots appear (both in row echelon and initial, though we usually use row echelon) transversed.
-            \item To find vectors in the null space set the first free variable to 1 and the second to 0 for the first vector, then flip for the second.
-            \item General solution is Specific solution \( +\beta _k*k\)th vector in the null space for all vectors in the null space.
+            \item \textbf{Specific (particular) solutions} are solutions \(x_s\), and \textbf{vectors in the null space} are solutions \(x_n\).
+            
+            To find specific solutions, set free variables equal to 0 and solve for \(Ax_s=b\).
+            \item Vectors form a basis for a \textbf{column space} of \(A\) if they're columns in \(A\) and linearly independent. \(\mathcal{C}(A)=\text{Span}(a_0\text{, ... , }a_n-1)\). So just the columns in the original matrix in which the pivots appear. Note: Also valid are columns from row echelon form, as they have the same span.
+            
+            Dimension is the number of dependent variables
+            \item Vectors in a \textbf{row space} are column vectors. The rows in which the pivots appear (both in row echelon and initial, though we usually use row echelon) transversed.
+            \item To find vectors in the \textbf{null space} set the first free variable to 1 and the second to 0 for the first vector and solve for \(Ax_n=0\), then flip for the second.
+            
+            Null space dimension is the number of columns - the number of pivots.
+            \item \textbf{General solution} is \(x_s +\beta _kx_k\) all \(k\) vectors in the null space.
         \end{itemize}
         
         \item QR factorization:
@@ -74,7 +83,8 @@
                 \end{pmatrix} \),
                 
             and \( \text{det}(A-\lambda I)=0\).
-        \item \textbf{Eigenvectors}
+        \item A vector \(x\) is an \textbf{eigenvector} of \(A\) if \(Ax=\lambda x\) where \(\lambda \) is some scalar. You get them by doing \( (A-\lambda I)x=0\) and solving for \(x\).
+        \pagebreak
         \item Determinants:
             \begin{itemize}
                 \item For 2x2 matrices 
@@ -95,6 +105,37 @@
                     
                     \(\text{det}(M)= aei+bfg+cdh-(afh+bdi+ceg) \)
             \end{itemize}
+        \item Inverses:
+            \begin{itemize}
+                \item For 2x2 matrices 
+                    \(M^{-1} =
+                    \begin{pmatrix}
+                        a & b \\
+                        c & d
+                    \end{pmatrix}
+                    ^{-1}=
+                    \frac{1}{ad-bc}
+                    \begin{pmatrix}
+                        d & -b \\
+                        -c & a
+                    \end{pmatrix}
+                    \)
+                \item For 3x3 matrices and up don't try to be tricky. Use Gauss-Jordan.
+            \end{itemize}
+        \item \textbf{Diagonalization}: We have \(X^{-1}AX=D\) where:
+        
+        \[X= (x_0 | \text{...} | x_{n-1}) \text{ and } D =
+        \begin{pmatrix}
+            \lambda _0 & & 0 \\
+            & \ddots & \\
+            0 & & \lambda _{n-1}
+        \end{pmatrix}
+        \text{ where each } x_k \text{ and }\lambda _k \text{ are an eigenvector and its eigenvalue, respectively.}\]
+        \item \textbf{LU Factorization}: \(U\) = result of Gaussian elimination, \(L\) is all the transformations you made combined. \(LU=A\)
+        
+        To do \(Ax=b\)...
+        \[Ax=b\] \[LUx=b\] \[Ly=b \text{ and } Ux=y\]
+        solve for \(y\) in the first equation, and then use \(y\) to solve for \(x\) in the second.
         \item Equivalent to "A is nonsingular"
             \begin{itemize}
                 \item \(A\) is invertible.
